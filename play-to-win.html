@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Where to Play. How to Win. — A Founder's Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --ink-muted: #6b6760;
+    --ink-faint: #b8b5af;
+    --paper: #faf8f4;
+    --paper-warm: #f3f0e9;
+    --paper-mid: #e8e4db;
+    --accent: #c8401a;
+    --accent-light: #f5e8e3;
+    --purple: #4a3f8a;
+    --purple-light: #eceaf8;
+    --green: #1a6644;
+    --green-light: #e3f0ea;
+    --amber: #8a5a0a;
+    --amber-light: #f5eddc;
+    --teal: #0f6656;
+    --teal-light: #e2f2ee;
+    --radius: 10px;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Sora', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 740px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: fixed;
+    top: 0; right: 0;
+    width: 50vw; height: 50vh;
+    background: radial-gradient(ellipse at top right, rgba(200,64,26,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--ink-muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--paper-mid);
+    padding-top: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink-faint);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bob 2s ease-in-out infinite;
+  }
+
+  .scroll-cue svg { opacity: 0.4; }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* === MAIN CONTENT === */
+  .main {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* === INTRO === */
+  .intro-block {
+    border-left: 2px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 4rem;
+    background: var(--accent-light);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  .intro-block .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .intro-block .attribution {
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* === FRAMEWORK STEPS === */
+  .framework-header {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--paper-mid);
+  }
+
+  .step {
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .step-inner {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0 20px;
+  }
+
+  .step-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+  }
+
+  .step-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+    font-family: var(--sans);
+    transition: all 0.3s;
+  }
+
+  .step-line-seg {
+    flex: 1;
+    width: 1px;
+    background: var(--paper-mid);
+    min-height: 24px;
+    margin: 6px 0;
+  }
+
+  .connector-row {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0 20px;
+    align-items: center;
+    padding: 4px 0;
+  }
+
+  .connector-track {
+    display: flex;
+    justify-content: center;
+  }
+
+  .connector-line {
+    width: 1px;
+    height: 32px;
+    background: var(--paper-mid);
+  }
+
+  .connector-label {
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-style: italic;
+    padding-left: 2px;
+  }
+
+  .step-content {
+    padding-bottom: 8px;
+  }
+
+  .step-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .step-question {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  /* === EXAMPLES === */
+  .examples-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .examples-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--sans);
+    background: transparent;
+  }
+
+  .chip:hover { opacity: 0.75; }
+  .chip.active { background: var(--ink); color: var(--paper) !important; border-color: var(--ink) !important; }
+
+  .chip .arrow {
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+
+  .chip.active .arrow { transform: rotate(90deg); }
+
+  .example-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    opacity: 0;
+    margin-top: 0;
+  }
+
+  .example-panel.open {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 12px;
+  }
+
+  .example-inner {
+    background: var(--paper-warm);
+    border: 1px solid var(--paper-mid);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  .example-inner strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .step-spacer {
+    height: 2.5rem;
+  }
+
+  /* === FOUNDER TEST === */
+  .section-break {
+    border: none;
+    border-top: 1px solid var(--paper-mid);
+    margin: 4rem 0 3rem;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: var(--ink-muted);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  /* === SELF-ASSESSMENT === */
+  .assessment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 560px) {
+    .assessment-grid { grid-template-columns: 1fr; }
+  }
+
+  .assessment-card {
+    background: var(--paper-warm);
+    border: 1px solid var(--paper-mid);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .assessment-card:focus-within {
+    border-color: var(--ink-muted);
+  }
+
+  .assessment-card .card-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .assessment-card .card-q {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  .assessment-card textarea {
+    width: 100%;
+    border: 1px solid var(--paper-mid);
+    border-radius: 6px;
+    background: var(--paper);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink);
+    padding: 8px 10px;
+    resize: none;
+    outline: none;
+    min-height: 72px;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+
+  .assessment-card textarea::placeholder { color: var(--ink-faint); }
+  .assessment-card textarea:focus { border-color: var(--ink-muted); }
+
+  /* === CLARITY SCORE === */
+  .clarity-bar-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .clarity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .clarity-label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .clarity-score {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--ink);
+    transition: color 0.5s;
+  }
+
+  .clarity-bar {
+    height: 4px;
+    background: var(--paper-mid);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .clarity-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .clarity-message {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+    min-height: 18px;
+    transition: color 0.3s;
+    font-style: italic;
+  }
+
+  /* === BOOK CTA === */
+  .book-cta {
+    display: flex;
+    gap: 20px;
+    border: 1px solid var(--paper-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    background: var(--paper-warm);
+    align-items: flex-start;
+    margin-top: 3rem;
+  }
+
+  .book-cover {
+    width: 64px;
+    height: 84px;
+    background: var(--ink);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .book-cover-title {
+    font-family: var(--serif);
+    font-size: 9px;
+    color: var(--paper);
+    text-align: center;
+    line-height: 1.3;
+    font-style: italic;
+  }
+
+  .book-cover-line {
+    width: 30px;
+    height: 0.5px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  .book-cover-author {
+    font-size: 7px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .book-body h3 {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  .book-body p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  .book-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s;
+  }
+
+  .book-link:hover { opacity: 0.7; }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--paper-mid);
+  }
+
+  /* === REVEAL ANIMATIONS === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .hero { padding: 4rem 1.5rem 4rem; }
+    .main { padding: 0 1.5rem 4rem; }
+    .step-inner { grid-template-columns: 40px 1fr; gap: 0 14px; }
+    .connector-row { grid-template-columns: 40px 1fr; gap: 0 14px; }
+    .book-cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="tag">Roger Martin · Playing to Win</span>
+  <h1 class="hero-title">
+    Where to<br><em>play.</em><br>How to<br><em>win.</em>
+  </h1>
+  <p class="hero-sub">
+    A 5-minute framework for founders making the choices that determine everything else — which market, which user, and why you.
+  </p>
+  <div class="hero-meta">
+    <span>5 min read</span>
+    <span>Interactive examples</span>
+    <span>Self-assessment included</span>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
+      <path d="M6 1v12M1 9l5 5 5-5" stroke="#0f0e0c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- INTRO -->
+  <div class="intro-block reveal">
+    <p class="quote">"Strategy is not about being the best. It's about being unique — in a place where that uniqueness creates value."</p>
+    <p class="attribution">— Roger Martin &amp; A.G. Lafley, Playing to Win (2013)</p>
+  </div>
+
+  <p class="reveal" style="font-size:14px; color: var(--ink-muted); line-height:1.8; margin-bottom:1rem; font-weight:300;">
+    Most early-stage failures aren't execution failures. They're strategy failures. The team built the right thing for the wrong person, or served the right person without a real reason to win. Roger Martin's <em>Playing to Win</em> gives you a repeatable cascade of five strategic choices — and the discipline to make them explicitly.
+  </p>
+  <p class="reveal" style="font-size:14px; color: var(--ink-muted); line-height:1.8; margin-bottom:3rem; font-weight:300;">
+    Here are the two that matter most at the early stage.
+  </p>
+
+  <!-- FRAMEWORK STEPS -->
+  <p class="framework-header reveal">The strategic cascade</p>
+
+  <div class="step reveal">
+    <div class="step-inner">
+      <div class="step-track">
+        <div class="step-dot" style="color: var(--teal); border-color: #7fccc0; background: var(--teal-light);">0</div>
+        <div class="step-line-seg"></div>
+      </div>
+      <div class="step-content">
+        <p class="step-label" style="color: var(--teal);">Winning aspiration</p>
+        <h2 class="step-question">What does winning actually mean for us?</h2>
+        <p class="step-desc">
+          This is the first and highest-level choice in Martin's cascade — it sits above everything else. Not "what do we want to build" or "what market do we serve," but: what does it mean for us to genuinely win, from the perspective of both the customer and the company?
+        </p>
+        <p class="step-desc" style="margin-bottom: 0.75rem;">
+          Martin is deliberate about the word <em>winning</em>. Most organizations set aspirations that are really just missions — vague statements like "be a great company" or "serve our customers well." These aren't winning aspirations because they don't force any real choices. A true winning aspiration must be specific enough that you could, in principle, know whether you achieved it or failed.
+        </p>
+        <p class="examples-label">How real companies answered this ↘</p>
+        <div class="examples-chips">
+          <button class="chip" style="color: var(--teal); border-color: #7fccc0;" onclick="toggleChip(this, 'ex0-pg')">P&amp;G (Lafley) <span class="arrow">→</span></button>
+          <button class="chip" style="color: var(--teal); border-color: #7fccc0;" onclick="toggleChip(this, 'ex0-stripe')">Stripe <span class="arrow">→</span></button>
+          <button class="chip" style="color: var(--teal); border-color: #7fccc0;" onclick="toggleChip(this, 'ex0-common')">Common trap <span class="arrow">→</span></button>
+        </div>
+        <div class="example-panel" id="ex0-pg">
+          <div class="example-inner"><strong>P&G under Lafley</strong> — Martin's primary case study — didn't aspire to "make great consumer products." Their winning aspiration was to be the undisputed leader in every category they competed in, measured by market share and brand preference. That framing forced a hard rule: be number one or two, or exit. No comfortable middle.</div>
+        </div>
+        <div class="example-panel" id="ex0-stripe">
+          <div class="example-inner"><strong>Stripe's</strong> winning aspiration was to increase the GDP of the internet — to make it dramatically easier for any developer anywhere to build a business online. Ambitious enough to orient every product decision, specific enough to know when they were falling short of it.</div>
+        </div>
+        <div class="example-panel" id="ex0-common">
+          <div class="example-inner"><strong>The common trap for founders:</strong> skipping this step entirely and going straight to "where to play." The consequence is that later choices feel arbitrary — two co-founders can have completely different mental models of what success looks like and still agree on a target customer. The conflict surfaces when tradeoff decisions arrive.</div>
+        </div>
+        <div class="step-spacer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 0 -->
+  <div class="connector-row reveal">
+    <div class="connector-track"><div class="connector-line"></div></div>
+    <div class="connector-label">sets the ambition level for...</div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-inner">
+      <div class="step-track">
+        <div class="step-dot" style="color: var(--purple); border-color: #c5c0e8; background: var(--purple-light);">1</div>
+        <div class="step-line-seg"></div>
+      </div>
+      <div class="step-content">
+        <p class="step-label" style="color: var(--purple);">Where to play</p>
+        <h2 class="step-question">Which arena are you choosing to compete in?</h2>
+        <p class="step-desc">
+          Not "what does everyone need?" — but "where, specifically, do we show up?" This means choosing a customer segment, a geography, a channel, a price point, or a moment in the value chain — and committing to it. The goal isn't to be everywhere. It's to matter somewhere.
+        </p>
+        <p class="step-desc" style="margin-bottom: 0.75rem;">
+          Most founders answer this too broadly. "SMBs" is not an arena. "SMBs in Southeast Asia using spreadsheets to manage inventory, with a single ops person and no budget for enterprise software" is an arena.
+        </p>
+        <p class="examples-label">How real companies answered this ↘</p>
+        <div class="examples-chips">
+          <button class="chip" style="color: var(--purple); border-color: #c5c0e8;" onclick="toggleChip(this, 'ex1-stripe')">Stripe <span class="arrow">→</span></button>
+          <button class="chip" style="color: var(--purple); border-color: #c5c0e8;" onclick="toggleChip(this, 'ex1-figma')">Figma <span class="arrow">→</span></button>
+          <button class="chip" style="color: var(--purple); border-color: #c5c0e8;" onclick="toggleChip(this, 'ex1-notion')">Notion <span class="arrow">→</span></button>
+        </div>
+        <div class="example-panel" id="ex1-stripe">
+          <div class="example-inner"><strong>Stripe</strong> chose developers — not CFOs, not enterprises, not payment consultants. Specifically: developers who found every existing payment API so painful they'd rather not support payments at all. A narrow wedge into a trillion-dollar market.</div>
+        </div>
+        <div class="example-panel" id="ex1-figma">
+          <div class="example-inner"><strong>Figma</strong> chose browser-based design tooling for collaborative product teams. Not illustrators. Not enterprise CAD users. Not solo designers who wanted a desktop app. That specificity drove every architectural decision that followed.</div>
+        </div>
+        <div class="example-panel" id="ex1-notion">
+          <div class="example-inner"><strong>Notion</strong> started with individual knowledge workers and small teams who felt trapped using five tools to do one job. Not enterprise IT buyers. Enterprise came later — once product-market fit was established from the bottom up.</div>
+        </div>
+        <div class="step-spacer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 1 -->
+  <div class="connector-row reveal">
+    <div class="connector-track"><div class="connector-line"></div></div>
+    <div class="connector-label">defines the conditions for...</div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-inner">
+      <div class="step-track">
+        <div class="step-dot" style="color: var(--green); border-color: #9fcdb8; background: var(--green-light);">2</div>
+        <div class="step-line-seg"></div>
+      </div>
+      <div class="step-content">
+        <p class="step-label" style="color: var(--green);">How to win</p>
+        <h2 class="step-question">What gives you the right to win in that arena?</h2>
+        <p class="step-desc">
+          Winning isn't just being better — it's being better <em>for a reason that's hard to copy</em>. Martin identifies two durable bases: cost leadership (you're structurally cheaper at scale) or differentiation (customers choose you even when you're not cheapest). For most startups, it's differentiation.
+        </p>
+        <p class="step-desc" style="margin-bottom: 0.75rem;">
+          The harder question: differentiated on what, exactly? "Better UX" is not a right to win. "The only tool that works without an IT implementation" or "the only API a solo developer can integrate in an afternoon" — those are rights to win.
+        </p>
+        <p class="examples-label">How real companies answered this ↘</p>
+        <div class="examples-chips">
+          <button class="chip" style="color: var(--green); border-color: #9fcdb8;" onclick="toggleChip(this, 'ex2-stripe')">Stripe <span class="arrow">→</span></button>
+          <button class="chip" style="color: var(--green); border-color: #9fcdb8;" onclick="toggleChip(this, 'ex2-figma')">Figma <span class="arrow">→</span></button>
+          <button class="chip" style="color: var(--green); border-color: #9fcdb8;" onclick="toggleChip(this, 'ex2-notion')">Notion <span class="arrow">→</span></button>
+        </div>
+        <div class="example-panel" id="ex2-stripe">
+          <div class="example-inner"><strong>Stripe's</strong> right to win: a 7-line integration and documentation so good it became a gold standard. They didn't win on price. They won because using Stripe was the most defensible technical decision a developer could make — and because developers <em>love</em> to recommend things they love.</div>
+        </div>
+        <div class="example-panel" id="ex2-figma">
+          <div class="example-inner"><strong>Figma's</strong> right to win: multiplayer by default, zero install friction, the entire design asset living in a URL. These were architectural choices incumbents like Sketch couldn't reverse-engineer without rewriting everything. The moat was technical, not just UX.</div>
+        </div>
+        <div class="example-panel" id="ex2-notion">
+          <div class="example-inner"><strong>Notion's</strong> right to win: radical flexibility through the block model — a single tool that could become anything — combined with a community that produced thousands of templates. The moat was network effects and switching cost, not features.</div>
+        </div>
+        <div class="step-spacer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 2 -->
+  <div class="connector-row reveal">
+    <div class="connector-track"><div class="connector-line"></div></div>
+    <div class="connector-label">requires you to build...</div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-inner">
+      <div class="step-track">
+        <div class="step-dot" style="color: var(--amber); border-color: #e0c080; background: var(--amber-light);">3</div>
+        <div class="step-line-seg"></div>
+      </div>
+      <div class="step-content">
+        <p class="step-label" style="color: var(--amber);">Capabilities</p>
+        <h2 class="step-question">What must you be genuinely excellent at?</h2>
+        <p class="step-desc">
+          Once you know where to play and how to win, the capabilities you need aren't a guess — they follow logically. These are the 2–3 things you need to be world-class at to deliver on your differentiation. Not just "good product." Something specific, hard to build, and even harder to copy.
+        </p>
+        <p class="step-desc" style="margin-bottom: 0.75rem;">
+          The test: write down the three things your product must be best-in-class at for your ideal customer to switch from whatever they use today. If you can't write them down specifically, your "where to play" is probably too vague — or your "how to win" doesn't hold up yet.
+        </p>
+        <div class="step-spacer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 3 -->
+  <div class="connector-row reveal">
+    <div class="connector-track"><div class="connector-line"></div></div>
+    <div class="connector-label">must be enabled by...</div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-inner">
+      <div class="step-track">
+        <div class="step-dot" style="color: var(--accent); border-color: #e8a090; background: var(--accent-light);">4</div>
+      </div>
+      <div class="step-content">
+        <p class="step-label" style="color: var(--accent);">Systems</p>
+        <h2 class="step-question">What structures reinforce your choices?</h2>
+        <p class="step-desc">
+          The companies that hold their position don't just make good choices — they build systems that make reversing those choices costly. For founders, this is often your hiring philosophy, pricing model, go-to-market motion, or the things you deliberately choose <em>not</em> to build.
+        </p>
+        <p class="step-desc" style="margin-bottom: 0">
+          Strategy is only real when it's reflected in what you do every day — who you hire, what you build, what you say no to, how you price, and which partnerships you pursue. If you can't trace a daily decision back to your "where to play" and "how to win," it might be the wrong decision.
+        </p>
+        <div class="step-spacer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELF ASSESSMENT -->
+  <hr class="section-break reveal">
+  <p class="section-eyebrow reveal">The founder's test</p>
+  <h2 class="section-title reveal">Answer these five questions — in writing.</h2>
+  <p class="section-desc reveal">
+    If any answer is vague, treat it as a red flag — not a planning problem, a strategy problem. The more specific your answers, the clearer your next product decision becomes.
+  </p>
+
+  <div class="assessment-grid reveal">
+    <div class="assessment-card" style="grid-column: 1 / -1;">
+      <p class="card-label" style="color: var(--teal);">Winning aspiration</p>
+      <p class="card-q">What does winning look like for your company — specifically enough that you'd know if you achieved it or failed?</p>
+      <textarea placeholder="Not 'build a great product' — what outcome, for whom, at what scale?" oninput="updateScore()" style="min-height: 56px;"></textarea>
+    </div>
+    <div class="assessment-card">
+      <p class="card-label" style="color: var(--purple);">Where to play</p>
+      <p class="card-q">Who, exactly, is your customer right now — and where do they live, work, or buy?</p>
+      <textarea placeholder="Be uncomfortably specific..." oninput="updateScore()"></textarea>
+    </div>
+    <div class="assessment-card">
+      <p class="card-label" style="color: var(--green);">How to win</p>
+      <p class="card-q">Why would that customer choose you over everything else they could do, including nothing?</p>
+      <textarea placeholder="Not 'better UX' — what specifically?" oninput="updateScore()"></textarea>
+    </div>
+    <div class="assessment-card">
+      <p class="card-label" style="color: var(--amber);">Capabilities</p>
+      <p class="card-q">What 2–3 things must you build or be that nobody in your arena can match?</p>
+      <textarea placeholder="Name them concretely..." oninput="updateScore()"></textarea>
+    </div>
+    <div class="assessment-card">
+      <p class="card-label" style="color: var(--accent);">Systems</p>
+      <p class="card-q">What have you put in place that makes your position harder to copy over time?</p>
+      <textarea placeholder="Hiring, pricing, GTM, deliberate 'no's..." oninput="updateScore()"></textarea>
+    </div>
+  </div>
+
+  <div class="clarity-bar-wrap reveal">
+    <div class="clarity-header">
+      <span class="clarity-label">Strategy clarity</span>
+      <span class="clarity-score" id="clarity-score">0%</span>
+    </div>
+    <div class="clarity-bar">
+      <div class="clarity-fill" id="clarity-fill"></div>
+    </div>
+    <p class="clarity-message" id="clarity-message">Start writing to see your score</p>
+  </div>
+
+  <!-- BOOK CTA -->
+  <div class="book-cta reveal">
+    <div class="book-cover">
+      <div class="book-cover-title">Playing<br>to Win</div>
+      <div class="book-cover-line"></div>
+      <div class="book-cover-author">Martin &amp; Lafley</div>
+    </div>
+    <div class="book-body">
+      <h3>Go deeper: Playing to Win</h3>
+      <p>Roger Martin and A.G. Lafley lay out the full five-choice cascade — and show how P&G used it to revive Olay, rescue Febreze, and rebuild Gillette after the Gillette acquisition. The book is especially strong on how choices at each level must <em>reinforce</em> each other, and what breaks when they don't.</p>
+      <a class="book-link" href="https://www.amazon.com/Playing-Win-Strategy-Really-Works/dp/142218739X" target="_blank" rel="noopener">
+        Find the book
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  Based on <em>Playing to Win</em> by Roger Martin &amp; A.G. Lafley (Harvard Business Review Press, 2013)
+</footer>
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Example chip toggle
+  function toggleChip(btn, panelId) {
+    const panel = document.getElementById(panelId);
+    const step = btn.closest('.step-content');
+    const allChips = step.querySelectorAll('.chip');
+    const allPanels = step.querySelectorAll('.example-panel');
+    const isOpen = panel.classList.contains('open');
+
+    allChips.forEach(c => c.classList.remove('active'));
+    allPanels.forEach(p => p.classList.remove('open'));
+
+    if (!isOpen) {
+      btn.classList.add('active');
+      panel.classList.add('open');
+    }
+  }
+
+  // Strategy clarity score
+  function updateScore() {
+    const textareas = document.querySelectorAll('.assessment-card textarea');
+    let totalChars = 0;
+    let filledCount = 0;
+    textareas.forEach(t => {
+      const len = t.value.trim().length;
+      totalChars += len;
+      if (len > 0) filledCount++;
+    });
+
+    const maxChars = 500;
+    const pct = Math.min(100, Math.round((totalChars / maxChars) * 100));
+
+    document.getElementById('clarity-score').textContent = pct + '%';
+    document.getElementById('clarity-fill').style.width = pct + '%';
+
+    const msg = document.getElementById('clarity-message');
+    if (pct === 0) {
+      msg.textContent = 'Start writing to see your score';
+      msg.style.color = 'var(--ink-faint)';
+    } else if (pct < 25) {
+      msg.textContent = 'You\'ve started — keep going. Specificity is everything.';
+      msg.style.color = 'var(--ink-muted)';
+    } else if (pct < 50) {
+      msg.textContent = 'Good momentum. Push for precision — who exactly, why exactly?';
+      msg.style.color = 'var(--ink-muted)';
+    } else if (pct < 75) {
+      msg.textContent = 'You\'re thinking like a strategist. Challenge your own vagueness.';
+      msg.style.color = 'var(--amber)';
+    } else if (pct < 95) {
+      msg.textContent = 'Strong clarity. If someone new read this, would they make the same product decisions you do?';
+      msg.style.color = 'var(--green)';
+    } else {
+      msg.textContent = 'High clarity. Share this with your co-founder or an advisor — see if they agree.';
+      msg.style.color = 'var(--green)';
+    }
+  }
+</script>
+</body>
+</html>
